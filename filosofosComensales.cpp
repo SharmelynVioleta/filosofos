@@ -7,16 +7,26 @@ using namespace std;
 
 void *filosofo (void *arg);
 
+pthread_mutex_t tenedor[5];
+int var=0;
 int main (void){
 	printf("Iniciando programa de filosofos COmensales\n");
-	printf("FILÓSOFOS:");
+	printf("FILÓSOFOS:\n");
 	pthread_t filosofos[numFilosofos];
 	int id[numFilosofos];
 	int i;
 	
+	
+	printf("variable=%d\n", var);
+	for (int i=0;< numFilosofos; i++){
+		pthread_mutex_init(&tenedor[i], NULL);
+	}
 	for (int i=0; i < numFilosofos; i++){
 		id[i]=i+1;
 		pthread_create(&filosofos[i], NULL, &filosofo, &id[i];
+	}
+	for (int i=0; i < numFilosofos; i++){
+		pthread_join(filosofo[i], NULL);
 	}
 
 	return 0;
