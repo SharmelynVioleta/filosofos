@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<pthread.h>
+#include<stdlib.h>
+#include<unistd.h>
 
 using namespace std;
 
@@ -34,18 +36,30 @@ int main (void){
 
 
 }
-void cogiendoTenedor (int fil, int think){
-	pthread_mutex_lock (&tenedor[think]);
-	printf("Filosofo %d cogio tenedor %d \n", fil,think);
+void cogiendoTenedor (int a, int b){
+	pthread_mutex_lock (&tenedor[b]);
+	printf("Filosofo %d cogio tenedor %d \n", a,b);
 }
 
 
 void soltarTenedor (int s1, int s2){
-	pthread_mutex_unlock(&tenedor[s1];
-	pthread_mutex_unlock(&tenedor[s2];
+	pthread_mutex_unlock(&tenedor[s1]);
+	pthread_mutex_unlock(&tenedor[s2]);
 }
 
-
+void comiendo (int arg){
+	int t1 = arg - 1;
+	int t2 = arg - 2;
+	if (t2 == -1){
+		t2 = 4;
+	}
+	cogiendoTenedor(arg, t1);
+	cogiendoTenedor(arg, t2);
+	printf ("FILÓSOFO %d ESTA COMIENDO \n",arg);
+	int alt = rand() % 10;
+	sleep (alt);
+	soltarTenedor (t1, t2);
+}
 void *filosofo (void *arg){
 	char *arg2 =(char*)arg;
 	for (int i = 0;true; i++){
