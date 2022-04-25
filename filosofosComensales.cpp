@@ -39,6 +39,13 @@ void cogiendoTenedor (int fil, int think){
 	printf("Filosofo %d cogio tenedor %d \n", fil,think);
 }
 
+
+void soltarTenedor (int s1, int s2){
+	pthread_mutex_unlock(&tenedor[s1];
+	pthread_mutex_unlock(&tenedor[s2];
+}
+
+
 void *filosofo (void *arg){
 	char *arg2 =(char*)arg;
 	for (int i = 0;true; i++){
